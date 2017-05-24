@@ -1,5 +1,5 @@
 # cilli Manual
-TODO
+Based on the manual code in TIS-3D.
 
 *This mod requires Java 8!*
 
