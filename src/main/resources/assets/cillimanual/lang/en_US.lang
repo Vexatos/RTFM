@@ -1,0 +1,6 @@
+item.cillimanual.book_manual.name=Manual
+
+cillimanual.manual.warning.missing.block=Block unavailable.
+cillimanual.manual.warning.missing.image=Image not found.
+cillimanual.manual.warning.missing.item=Item unavailable.
+cillimanual.manual.warning.missing.ore_dict=Ore dictionary entry unavailable.

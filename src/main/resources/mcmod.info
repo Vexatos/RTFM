@@ -1,0 +1,31 @@
+[
+    {
+        "modid": "cillimanual",
+        "name": "cil.li manual",
+        "description": "A markdown-based manual.",
+        "version": "${version}",
+        "mcversion": "${mcversion}",
+        "url": "",
+        "updateUrl": "",
+        "authorList": ["Sangar"],
+        "logoFile": "",
+        "screenshots": [],
+        "requiredMods": ["Forge@[${fversion},)"],
+        "dependencies": []
+    },
+    {
+        "modid": "ManualTabs",
+        "name": "Custom Manual Tabs",
+        "description": "Adds tabs to the cil.li manual which text can be added to from the configs.",
+        "version": "${version}",
+        "credits": "",
+        "logoFile": "",
+        "mcversion": "${mcversion}",
+        "url": "",
+        "updateUrl": "",
+        "authorList": ["Vexatos"],
+        "parent": "",
+        "screenshots": [],
+        "dependencies": []
+    }
+]
