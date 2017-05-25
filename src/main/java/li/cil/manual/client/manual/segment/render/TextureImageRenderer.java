@@ -1,5 +1,6 @@
 package li.cil.manual.client.manual.segment.render;
 
+import com.google.common.base.Throwables;
 import li.cil.manual.api.manual.ImageRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -84,6 +85,8 @@ public class TextureImageRenderer implements ImageRenderer {
                 TextureUtil.uploadTextureImageAllocate(getGlTextureId(), bi, false, false);
                 width = bi.getWidth();
                 height = bi.getHeight();
+            } catch (final Throwable t) {
+                Throwables.propagate(t);
             } finally {
                 if (is != null) {
                     is.close();
