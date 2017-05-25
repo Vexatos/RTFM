@@ -10,7 +10,7 @@ import li.cil.manual.api.manual.PathProvider;
 import li.cil.manual.api.manual.TabIconRenderer;
 import li.cil.manual.client.gui.GuiHandlerClient;
 import li.cil.manual.client.gui.GuiManual;
-import li.cil.manual.common.Manual;
+import li.cil.manual.common.RTFM;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -111,7 +111,7 @@ public final class ManualAPIImpl implements ManualAPI {
     public void addTab(final TabIconRenderer renderer, @Nullable final String tooltip, final String path) {
         tabs.add(new Tab(renderer, tooltip, path));
         if (tabs.size() > 7) {
-            Manual.getLog().warn("Gosh I'm popular! Too many tabs were added to the in-game manual, so some won't be shown. In case this actually happens, let me know and I'll look into making them scrollable or something...");
+            RTFM.getLog().warn("Gosh I'm popular! Too many tabs were added to the in-game manual, so some won't be shown. In case this actually happens, let me know and I'll look into making them scrollable or something...");
         }
     }
 
@@ -176,7 +176,7 @@ public final class ManualAPIImpl implements ManualAPI {
                         return image;
                     }
                 } catch (final Throwable t) {
-                    Manual.getLog().warn(MESSAGE_IMAGE_PROVIDER_EXCEPTION, t);
+                    RTFM.getLog().warn(MESSAGE_IMAGE_PROVIDER_EXCEPTION, t);
                 }
             }
         }
@@ -187,7 +187,7 @@ public final class ManualAPIImpl implements ManualAPI {
     @Override
     public void openFor(final EntityPlayer player) {
         if (player.getEntityWorld().isRemote) {
-            player.openGui(Manual.instance, GuiHandlerClient.GuiId.BOOK_MANUAL.ordinal(), player.getEntityWorld(), 0, 0, 0);
+            player.openGui(RTFM.instance, GuiHandlerClient.GuiId.BOOK_MANUAL.ordinal(), player.getEntityWorld(), 0, 0, 0);
         }
     }
 
@@ -240,7 +240,7 @@ public final class ManualAPIImpl implements ManualAPI {
                     return path;
                 }
             } catch (final Throwable t) {
-                Manual.getLog().warn(warning, t);
+                RTFM.getLog().warn(warning, t);
             }
         }
         return null;
@@ -283,7 +283,7 @@ public final class ManualAPIImpl implements ManualAPI {
                     return Optional.of(lines);
                 }
             } catch (final Throwable t) {
-                Manual.getLog().warn(MESSAGE_CONTENT_LOOKUP_EXCEPTION, t);
+                RTFM.getLog().warn(MESSAGE_CONTENT_LOOKUP_EXCEPTION, t);
             }
         }
         return Optional.empty();

@@ -41,7 +41,7 @@ public enum Config {
         for (final ConfigCategory tab : config.getCategory("manual").getChildren()) {
             if (!(tab.containsKey("tabIconMode") && tab.containsKey("tabIcon")
                   && tab.containsKey("tabPath") && tab.containsKey("tabName"))) {
-                Manual.getLog().error(String.format("Invalid manual tab '%s'", tab.getName()));
+                RTFM.getLog().error(String.format("Invalid manual tab '%s'", tab.getName()));
                 continue;
             }
 
@@ -59,13 +59,13 @@ public enum Config {
                         meta = Integer.parseInt(strings[1]);
                     } catch (NumberFormatException ex) {
                         config.save();
-                        throw Manual.proxy.throwBadConfigException(icon, ex);
+                        throw RTFM.proxy.throwBadConfigException(icon, ex);
                     }
                 } else if (strings.length == 1) {
                     meta = 0;
                 } else {
                     config.save();
-                    throw Manual.proxy.throwBadConfigException(icon);
+                    throw RTFM.proxy.throwBadConfigException(icon);
                 }
 
                 final Item item = Item.REGISTRY.getObject(new ResourceLocation(strings[0]));
@@ -91,7 +91,7 @@ public enum Config {
         if (mainPath != null) {
             ManualAPI.addProvider(new MainPageContentProvider(mainPath));
         } else {
-            Manual.getLog().error(String.format("Invalid main tab '%s'", mainTab));
+            RTFM.getLog().error(String.format("Invalid main tab '%s'", mainTab));
         }
 
         config.save();

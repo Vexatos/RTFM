@@ -6,7 +6,7 @@ import li.cil.manual.client.manual.provider.BlockImageProvider;
 import li.cil.manual.client.manual.provider.ItemImageProvider;
 import li.cil.manual.client.manual.provider.OreDictImageProvider;
 import li.cil.manual.client.manual.provider.TextureImageProvider;
-import li.cil.manual.common.Manual;
+import li.cil.manual.common.RTFM;
 import li.cil.manual.common.ProxyCommon;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -33,7 +33,7 @@ public final class ProxyClient extends ProxyCommon {
         super.onInit(event);
 
         // Register GUI handler for fancy GUIs in our almost GUI-less mod!
-        NetworkRegistry.INSTANCE.registerGuiHandler(Manual.instance, new GuiHandlerClient());
+        NetworkRegistry.INSTANCE.registerGuiHandler(RTFM.instance, new GuiHandlerClient());
 
         // Add default manual providers for client side stuff.
         ManualAPI.addProvider("", new TextureImageProvider());

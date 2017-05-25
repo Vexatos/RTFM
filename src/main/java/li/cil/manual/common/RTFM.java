@@ -13,12 +13,12 @@ import org.apache.logging.log4j.Logger;
  * Entry point for FML.
  */
 @Mod(modid = API.MOD_ID, version = API.MOD_VERSION, useMetadata = true)
-public final class Manual {
+public final class RTFM {
     // --------------------------------------------------------------------- //
     // FML / Forge
 
     @Mod.Instance(API.MOD_ID)
-    public static Manual instance;
+    public static RTFM instance;
 
     @SidedProxy(clientSide = Constants.PROXY_CLIENT, serverSide = Constants.PROXY_COMMON)
     public static ProxyCommon proxy;

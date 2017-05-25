@@ -12,6 +12,8 @@
 !/gradlew
 !/gradlew.bat
 !/changelog.md
+!/settings.gradle
+!/style.xml
 
 # APIs and dependencies
 !/libs
