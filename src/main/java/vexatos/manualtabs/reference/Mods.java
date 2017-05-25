@@ -19,7 +19,7 @@ public class Mods {
 		ManualTabs_NAME = "Custom Manual Tabs";
 
 	public static final String
-		cillimanual = "cillimanual";
+		RTFM = "rtfm";
 
 	//Other APIs
 	public static class API {

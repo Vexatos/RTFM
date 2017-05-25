@@ -2,13 +2,13 @@ package li.cil.manual.api;
 
 
 /**
- * Glue / actual references for the cillimanual API.
+ * Glue / actual references for the RTFM API.
  */
 public final class API {
     /**
      * The ID of the mod, i.e. the internal string it is identified by.
      */
-    public static final String MOD_ID = "cillimanual";
+    public static final String MOD_ID = "rtfm";
 
     /**
      * The current version of the mod.
@@ -17,7 +17,7 @@ public final class API {
 
     // --------------------------------------------------------------------- //
 
-    // Set in cillimanual pre-init, prefer using static entry point classes instead.
+    // Set in RTFM pre-init, prefer using static entry point classes instead.
     public static li.cil.manual.api.detail.FontRendererAPI fontRendererAPI;
     public static li.cil.manual.api.detail.ManualAPI manualAPI;
 

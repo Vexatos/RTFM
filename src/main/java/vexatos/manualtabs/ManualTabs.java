@@ -25,7 +25,7 @@ import vexatos.manualtabs.reference.Mods;
  * @author Vexatos
  */
 @Mod(modid = Mods.ManualTabs, name = Mods.ManualTabs_NAME, version = "@VERSION@",
-	dependencies = "required-after:" + Mods.cillimanual)
+	dependencies = "required-after:" + Mods.RTFM)
 public class ManualTabs {
 
 	@Mod.Instance(Mods.ManualTabs)
@@ -98,7 +98,7 @@ public class ManualTabs {
 					if(item != null) {
 						r = new ItemStackTabIconRenderer(new ItemStack(item, 1, meta));
 					} else {
-						r = new TextureTabIconRenderer(new ResourceLocation("cillimanual", "textures/gui/manual_missing.png"));
+						r = new TextureTabIconRenderer(new ResourceLocation("rtfm", "textures/gui/manual_missing.png"));
 					}
 				} else {
 					r = new TextureTabIconRenderer(new ResourceLocation(icon));
@@ -119,7 +119,7 @@ public class ManualTabs {
 				log.error(String.format("Invalid main tab '%s'", mainTab));
 			}
 		} else {
-			log.info("Custom cilli Manual Tab disabled.");
+			log.info("Custom RTFM Manual Tab disabled.");
 		}
 		config.save();
 	}

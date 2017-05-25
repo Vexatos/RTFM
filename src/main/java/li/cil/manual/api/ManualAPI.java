@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 /**
- * This API allows interfacing with the in-game manual of cillimanual.
+ * This API allows interfacing with the in-game manual of RTFM.
  * <p>
  * It allows opening the manual at a desired specific page, as well as
  * registering custom tabs and content callback handlers.

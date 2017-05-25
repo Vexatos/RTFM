@@ -20,8 +20,8 @@ import java.util.ArrayList;
  * paths that are identical except for their resource domain will be the same,
  * as seen from the manual. This means you should probably place your
  * documentation somewhere other than <tt>doc/</tt>, because that's where the
- * cillimanual documentation lives, and it is queried first - meaning if you
- * have a page with the same path as one in cillimanual, it is practically
+ * RTFM documentation lives, and it is queried first - meaning if you
+ * have a page with the same path as one in RTFM, it is practically
  * unreachable (because the OC provider is always queried first).
  */
 @SuppressWarnings("UnusedDeclaration")

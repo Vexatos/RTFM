@@ -1,8 +1,6 @@
 package li.cil.manual.common;
 
 import li.cil.manual.api.API;
-import li.cil.manual.api.ManualAPI;
-import li.cil.manual.api.prefab.manual.ResourceContentProvider;
 import li.cil.manual.common.api.FontRendererAPIImpl;
 import li.cil.manual.common.api.ManualAPIImpl;
 import li.cil.manual.common.init.Items;

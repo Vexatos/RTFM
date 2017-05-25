@@ -1,22 +1,22 @@
 [
     {
-        "modid": "cillimanual",
-        "name": "cil.li manual",
+        "modid": "rtfm",
+        "name": "RTFM",
         "description": "A markdown-based manual.",
         "version": "${version}",
         "mcversion": "${mcversion}",
         "url": "",
         "updateUrl": "",
-        "authorList": ["Sangar"],
+        "authorList": ["Sangar", "Vexatos"],
         "logoFile": "",
         "screenshots": [],
         "requiredMods": ["Forge@[${fversion},)"],
         "dependencies": []
     },
     {
-        "modid": "ManualTabs",
+        "modid": "manualtabs",
         "name": "Custom Manual Tabs",
-        "description": "Adds tabs to the cil.li manual which text can be added to from the configs.",
+        "description": "Adds tabs to the RTFM manual which text can be added to from the configs.",
         "version": "${version}",
         "credits": "",
         "logoFile": "",

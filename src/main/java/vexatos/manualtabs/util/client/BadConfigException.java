@@ -30,7 +30,7 @@ public class BadConfigException extends CustomModLoadingErrorDisplayException {
 		int offs = (errorScreen.height / 2) - 70;
 		//int offs = 10;
 		int centre = errorScreen.width / 2;
-		drawCenteredString(fr, "Could not load additional cilli Manual Tab", centre, offs, 0xffffff);
+		drawCenteredString(fr, "Could not load additional RTFM Manual Tab", centre, offs, 0xffffff);
 		offs += 15;
 		drawCenteredString(fr, "Tab icon was set to '\u00a74" + icon + "\u00a7r'", centre, offs, 0xeeeeee);
 		offs += 15;

@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
  * hand and sneak-activating a block in the world.
  * <p>
  * This way you can easily make entries in your documentation available the
- * same way cillimanual does it itself.
+ * same way RTFM does it itself.
  * <p>
  * Note that you can use the special variable <tt>%LANGUAGE%</tt> in your
  * paths, for language agnostic paths. These will be resolved to the currently
