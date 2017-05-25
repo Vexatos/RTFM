@@ -7,12 +7,12 @@ import vexatos.manualtabs.util.BadConfigException;
  */
 public class CommonProxy {
 
-	public void throwBadConfigException(String icon) {
-		throw new BadConfigException(icon);
-	}
+    public void throwBadConfigException(String icon) {
+        throw new BadConfigException(icon);
+    }
 
-	public void throwBadConfigException(String icon, Throwable t) {
-		throw new BadConfigException(icon, t);
-	}
+    public void throwBadConfigException(String icon, Throwable t) {
+        throw new BadConfigException(icon, t);
+    }
 
 }

@@ -1,7 +1,6 @@
 package li.cil.manual.common;
 
 import li.cil.manual.api.API;
-import li.cil.manual.common.api.FontRendererAPIImpl;
 import li.cil.manual.common.api.ManualAPIImpl;
 import li.cil.manual.common.init.Items;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,24 +16,22 @@ import java.util.function.Supplier;
  * Takes care of common setup.
  */
 public class ProxyCommon {
+    public void onPreInit(final FMLPreInitializationEvent event) {
+        API.manualAPI = ManualAPIImpl.INSTANCE;
+        Items.register(this);
+    }
 
-	public void onPreInit(final FMLPreInitializationEvent event) {
-		API.fontRendererAPI = new FontRendererAPIImpl();
-		API.manualAPI = ManualAPIImpl.INSTANCE;
-		Items.register(this);
-	}
+    public void onInit(final FMLInitializationEvent event) {
+        // Register Ore Dictionary entries
+        OreDictionary.registerOre("book", Items.bookManual);
+    }
 
-	public void onInit(final FMLInitializationEvent event) {
-		// Register Ore Dictionary entries
-		OreDictionary.registerOre("book", Items.bookManual);
-	}
-
-	public Item registerItem(final String name, final Supplier<Item> constructor) {
-		final Item item = constructor.get().
-			setUnlocalizedName(API.MOD_ID + "." + name).
-			setCreativeTab(CreativeTabs.TOOLS).
-			setRegistryName(name);
-		GameRegistry.register(item);
-		return item;
-	}
+    public Item registerItem(final String name, final Supplier<Item> constructor) {
+        final Item item = constructor.get().
+                setUnlocalizedName(API.MOD_ID + "." + name).
+                setCreativeTab(CreativeTabs.TOOLS).
+                setRegistryName(name);
+        GameRegistry.register(item);
+        return item;
+    }
 }

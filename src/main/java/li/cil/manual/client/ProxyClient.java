@@ -22,39 +22,38 @@ import java.util.function.Supplier;
  * Takes care of client-side only setup.
  */
 public final class ProxyClient extends ProxyCommon {
+    @Override
+    public void onPreInit(final FMLPreInitializationEvent event) {
+        super.onPreInit(event);
+    }
 
-	@Override
-	public void onPreInit(final FMLPreInitializationEvent event) {
-		super.onPreInit(event);
-	}
+    @Override
+    public void onInit(final FMLInitializationEvent event) {
+        super.onInit(event);
 
-	@Override
-	public void onInit(final FMLInitializationEvent event) {
-		super.onInit(event);
+        // Register GUI handler for fancy GUIs in our almost GUI-less mod!
+        NetworkRegistry.INSTANCE.registerGuiHandler(Manual.instance, new GuiHandlerClient());
 
-		// Register GUI handler for fancy GUIs in our almost GUI-less mod!
-		NetworkRegistry.INSTANCE.registerGuiHandler(Manual.instance, new GuiHandlerClient());
+        // Add default manual providers for client side stuff.
+        ManualAPI.addProvider("", new TextureImageProvider());
+        ManualAPI.addProvider("item", new ItemImageProvider());
+        ManualAPI.addProvider("block", new BlockImageProvider());
+        ManualAPI.addProvider("oredict", new OreDictImageProvider());
+    }
 
-		// Add default manual providers for client side stuff.
-		ManualAPI.addProvider("", new TextureImageProvider());
-		ManualAPI.addProvider("item", new ItemImageProvider());
-		ManualAPI.addProvider("block", new BlockImageProvider());
-		ManualAPI.addProvider("oredict", new OreDictImageProvider());
-	}
+    @Override
+    public Item registerItem(final String name, final Supplier<Item> constructor) {
+        final Item item = super.registerItem(name, constructor);
+        setCustomItemModelResourceLocation(item);
+        return item;
+    }
 
-	@Override
-	public Item registerItem(final String name, final Supplier<Item> constructor) {
-		final Item item = super.registerItem(name, constructor);
-		setCustomItemModelResourceLocation(item);
-		return item;
-	}
+    // --------------------------------------------------------------------- //
 
-	// --------------------------------------------------------------------- //
-
-	private static void setCustomItemModelResourceLocation(final Item item) {
-		final ResourceLocation registryName = item.getRegistryName();
-		assert registryName != null;
-		final ModelResourceLocation location = new ModelResourceLocation(registryName, "inventory");
-		ModelLoader.setCustomModelResourceLocation(item, 0, location);
-	}
+    private static void setCustomItemModelResourceLocation(final Item item) {
+        final ResourceLocation registryName = item.getRegistryName();
+        assert registryName != null;
+        final ModelResourceLocation location = new ModelResourceLocation(registryName, "inventory");
+        ModelLoader.setCustomModelResourceLocation(item, 0, location);
+    }
 }
