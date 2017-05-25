@@ -41,7 +41,7 @@ public final class CodeSegment extends BasicTextSegment {
             GlStateManager.pushMatrix();
             GlStateManager.translate(currentX, currentY, 0);
             GlStateManager.scale(FONT_SCALE, FONT_SCALE, FONT_SCALE);
-            FontRendererNormal.INSTANCE.drawString(part.toUpperCase());
+            FontRendererNormal.INSTANCE.drawString(part);
             GlStateManager.popMatrix();
             currentX = x + wrapIndent;
             currentY += lineHeight(renderer);
