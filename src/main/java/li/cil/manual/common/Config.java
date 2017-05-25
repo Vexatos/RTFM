@@ -1,16 +1,17 @@
 package li.cil.manual.common;
 
+import li.cil.manual.api.API;
 import li.cil.manual.api.ManualAPI;
 import li.cil.manual.api.manual.TabIconRenderer;
 import li.cil.manual.api.prefab.manual.ItemStackTabIconRenderer;
 import li.cil.manual.api.prefab.manual.TextureTabIconRenderer;
+import li.cil.manual.common.api.ManualAPIImpl;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import vexatos.manualtabs.manual.ConfigContentProvider;
-import vexatos.manualtabs.manual.MainPageContentProvider;
 
 import java.io.File;
 
@@ -25,10 +26,8 @@ public enum Config {
     }
 
     public void init() {
-        final String prefix = config.getString("pathPrefix", "general", "rtfm", "The prefix with which to reference manual pages.\nSetting this to 'potato' would allow referencing a manual file at this config folder's 'rtfm/en_us/fish.md'\n"
-                                                                                      + "from inside the actual manual by writing 'potato/%LANGUAGE%/fish.md' into the referencing markdown page (relative paths work too, of course).");
         final String mainTab = config.getString("mainTab", "general", "exampletab", "The main tab that will be selected when you first open the manual");
-        ManualAPI.addProvider(new ConfigContentProvider(prefix));
+        ManualAPI.addProvider(new ConfigContentProvider());
         config.setCategoryComment("manual", "You can add as many tabs as you want in here. At least until the space runs out.\nTo regenerate this section, remove all entries from this category.");
         if (config.getCategory("manual").getChildren().size() == 0) {
             config.getInt("tabIconMode", "manual.exampletab", 1, 0, 1, Constants.CONFIG_COMMENT_TAB_ICON_MODE);
@@ -72,7 +71,7 @@ public enum Config {
                 if (item != null) {
                     r = new ItemStackTabIconRenderer(new ItemStack(item, 1, meta));
                 } else {
-                    r = new TextureTabIconRenderer(new ResourceLocation("rtfm", "textures/gui/manual_missing.png"));
+                    r = new TextureTabIconRenderer(new ResourceLocation(API.MOD_ID, "textures/gui/manual_missing.png"));
                 }
             } else {
                 r = new TextureTabIconRenderer(new ResourceLocation(icon));
@@ -81,15 +80,15 @@ public enum Config {
             tab.get("tabPath").setComment(Constants.CONFIG_COMMENT_TAB_PATH);
             String tabName = tab.get("tabName").getString();
             tab.get("tabName").setComment(Constants.CONFIG_COMMENT_TAB_NAME);
-            ManualAPI.addTab(r, tabName, prefix + "/" + tabPath);
+            ManualAPI.addTab(r, tabName, tabPath);
 
             if (mainTab.equals(tab.getName())) {
-                mainPath = prefix + "/" + tabPath;
+                mainPath = tabPath;
             }
         }
 
         if (mainPath != null) {
-            ManualAPI.addProvider(new MainPageContentProvider(mainPath));
+            ManualAPIImpl.setDefaultPage(mainPath);
         } else {
             RTFM.getLog().error(String.format("Invalid main tab '%s'", mainTab));
         }

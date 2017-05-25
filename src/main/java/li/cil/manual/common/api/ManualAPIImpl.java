@@ -99,6 +99,11 @@ public final class ManualAPIImpl implements ManualAPI {
      */
     private final List<PrefixedImageProvider> imageProviders = new ArrayList<>();
 
+    /**
+     * The default page to open when resetting / the history becomes empty.
+     */
+    private String defaultPage = String.format("%s/index.md", LANGUAGE_KEY);
+
     // --------------------------------------------------------------------- //
 
     private ManualAPIImpl() {
@@ -194,7 +199,7 @@ public final class ManualAPIImpl implements ManualAPI {
     @Override
     public void reset() {
         history.clear();
-        history.push(new History(String.format("%s/index.md", LANGUAGE_KEY)));
+        history.push(new History(defaultPage));
     }
 
     @Override
@@ -227,6 +232,11 @@ public final class ManualAPIImpl implements ManualAPI {
                 return path;
             }
         }
+    }
+
+    public static void setDefaultPage(final String defaultPage) {
+        INSTANCE.defaultPage = defaultPage;
+        INSTANCE.reset();
     }
 
     // --------------------------------------------------------------------- //

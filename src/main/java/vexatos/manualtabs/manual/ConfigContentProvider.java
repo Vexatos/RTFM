@@ -18,9 +18,8 @@ import java.util.ArrayList;
  */
 public class ConfigContentProvider implements ContentProvider {
     private final File directory;
-    private final String prefix;
 
-    public ConfigContentProvider(String prefix) {
+    public ConfigContentProvider() {
         directory = new File(Loader.instance().getConfigDir() + File.separator + API.MOD_ID);
         if (!directory.exists()) {
             directory.mkdir();
@@ -29,18 +28,13 @@ public class ConfigContentProvider implements ContentProvider {
                 defLangDir.mkdir();
             }
         }
-        this.prefix = prefix;
     }
 
     @Override
     public Iterable<String> getContent(String path) {
         path = path.startsWith("/") ? path.substring(1) : path;
-        if (!path.startsWith(this.prefix)) {
-            return null;
-        }
         InputStream stream = null;
         try {
-            path = path.substring(this.prefix.length() + 1);
             File file = new File(directory, (path.startsWith("/") ? path.substring(1) : path));
             if (file.exists()) {
                 stream = new FileInputStream(file);
