@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import vexatos.manualtabs.util.BadConfigException;
 
 import java.util.function.Supplier;
 
@@ -17,11 +18,15 @@ import java.util.function.Supplier;
  */
 public class ProxyCommon {
     public void onPreInit(final FMLPreInitializationEvent event) {
+        Config.INSTANCE.load(event.getSuggestedConfigurationFile());
+
         API.manualAPI = ManualAPIImpl.INSTANCE;
         Items.register(this);
     }
 
     public void onInit(final FMLInitializationEvent event) {
+        Config.INSTANCE.init();
+
         // Register Ore Dictionary entries
         OreDictionary.registerOre("book", Items.bookManual);
     }
@@ -33,5 +38,13 @@ public class ProxyCommon {
                 setRegistryName(name);
         GameRegistry.register(item);
         return item;
+    }
+
+    public RuntimeException throwBadConfigException(String icon) {
+        throw new BadConfigException(icon);
+    }
+
+    public RuntimeException throwBadConfigException(String icon, Throwable t) {
+        throw new BadConfigException(icon, t);
     }
 }

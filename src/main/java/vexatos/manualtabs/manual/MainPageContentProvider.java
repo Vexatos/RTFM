@@ -4,12 +4,13 @@ import li.cil.manual.api.ManualAPI;
 import li.cil.manual.api.manual.ContentProvider;
 
 import javax.annotation.Nullable;
+import java.util.regex.Pattern;
 
 /**
  * @author Vexatos
  */
 public class MainPageContentProvider implements ContentProvider {
-
+    private static final Pattern indexPattern = Pattern.compile("[a-zA-Z_]+/index.md");
     private final String mainPath;
 
     public MainPageContentProvider(String mainPath) {
@@ -25,7 +26,7 @@ public class MainPageContentProvider implements ContentProvider {
             return null;
         }
         path = path.startsWith("/") ? path.substring(1) : path;
-        if (path.matches("[a-zA-Z_]+/index.md")) {
+        if (indexPattern.matcher(path).matches()) {
             sentinel = true;
             final Iterable<String> content = ManualAPI.contentFor(mainPath);
             sentinel = false;

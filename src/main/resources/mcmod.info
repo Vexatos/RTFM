@@ -12,20 +12,5 @@
         "screenshots": [],
         "requiredMods": ["Forge@[${fversion},)"],
         "dependencies": []
-    },
-    {
-        "modid": "manualtabs",
-        "name": "Custom Manual Tabs",
-        "description": "Adds tabs to the RTFM manual which text can be added to from the configs.",
-        "version": "${version}",
-        "credits": "",
-        "logoFile": "",
-        "mcversion": "${mcversion}",
-        "url": "",
-        "updateUrl": "",
-        "authorList": ["Vexatos"],
-        "parent": "",
-        "screenshots": [],
-        "dependencies": []
     }
 ]

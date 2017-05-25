@@ -1,6 +1,7 @@
 package vexatos.manualtabs.manual;
 
 import com.google.common.base.Charsets;
+import li.cil.manual.api.API;
 import li.cil.manual.api.manual.ContentProvider;
 import net.minecraftforge.fml.common.Loader;
 
@@ -16,12 +17,11 @@ import java.util.ArrayList;
  * @author Vexatos
  */
 public class ConfigContentProvider implements ContentProvider {
-
-    protected final File directory;
-    protected final String prefix;
+    private final File directory;
+    private final String prefix;
 
     public ConfigContentProvider(String prefix) {
-        directory = new File(Loader.instance().getConfigDir() + File.separator + "manualtabs");
+        directory = new File(Loader.instance().getConfigDir() + File.separator + API.MOD_ID);
         if (!directory.exists()) {
             directory.mkdir();
             File defLangDir = new File(directory, "en_us");

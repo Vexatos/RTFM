@@ -15,6 +15,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import vexatos.manualtabs.util.client.BadConfigException;
 
 import java.util.function.Supplier;
 
@@ -46,6 +47,16 @@ public final class ProxyClient extends ProxyCommon {
         final Item item = super.registerItem(name, constructor);
         setCustomItemModelResourceLocation(item);
         return item;
+    }
+
+    @Override
+    public RuntimeException throwBadConfigException(String icon) {
+        throw new BadConfigException(icon);
+    }
+
+    @Override
+    public RuntimeException throwBadConfigException(String icon, Throwable t) {
+        throw new BadConfigException(icon, t);
     }
 
     // --------------------------------------------------------------------- //
