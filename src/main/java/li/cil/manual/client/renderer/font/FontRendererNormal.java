@@ -14,7 +14,7 @@ public final class FontRendererNormal extends AbstractFontRenderer {
 
     @Override
     public int getCharWidth() {
-        return 9;
+        return 8;
     }
 
     @Override
@@ -42,7 +42,7 @@ public final class FontRendererNormal extends AbstractFontRenderer {
 
     @Override
     protected int getGapU() {
-        return 0;
+        return 1;
     }
 
     @Override

@@ -31,7 +31,7 @@ import java.util.Optional;
 @SideOnly(Side.CLIENT)
 public final class GuiManual extends GuiScreen {
     private static final int documentMaxWidth = 220;
-    private static final int documentMaxHeight = 176;
+    private static final int documentMaxHeight = 192;
     private static final int scrollPosX = 250;
     private static final int scrollPosY = 48;
     private static final int scrollWidth = 26;
@@ -110,7 +110,7 @@ public final class GuiManual extends GuiScreen {
             GlStateManager.popMatrix();
         }
 
-        currentSegment = Document.render(document, guiLeft + 16, guiTop + 48, documentMaxWidth, documentMaxHeight, offset(), getFontRenderer(), mouseX, mouseY);
+        currentSegment = Document.render(document, guiLeft + 16, guiTop + 32, documentMaxWidth, documentMaxHeight, offset(), getFontRenderer(), mouseX, mouseY);
 
         if (!isDragging) {
             currentSegment.ifPresent(s -> s.tooltip().ifPresent(t -> drawHoveringText(Collections.singletonList(I18n.format(t)), mouseX, mouseY, getFontRenderer())));
