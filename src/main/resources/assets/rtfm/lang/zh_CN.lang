@@ -1,6 +1,8 @@
-item.rtfm.book_manual.name=参考手册
+item.rtfm.book_manual.name=使用手册
 
-rtfm.manual.warning.missing.block=方块不可用.
-rtfm.manual.warning.missing.image=未找到图片.
-rtfm.manual.warning.missing.item=物品不可用.
-rtfm.manual.warning.missing.oreDict=矿石辞典不可用.
+rtfm.manual.warning.missing.block=方块不可用。
+rtfm.manual.warning.missing.image=未找到图片。
+rtfm.manual.warning.missing.item=物品不可用。
+rtfm.manual.warning.missing.oreDict=矿物词典条目不可用。
+
+tooltip.rtfm.manual.tab=示例自定义标签
