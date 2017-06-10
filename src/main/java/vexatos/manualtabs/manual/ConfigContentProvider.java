@@ -3,7 +3,9 @@ package vexatos.manualtabs.manual;
 import com.google.common.base.Charsets;
 import li.cil.manual.api.API;
 import li.cil.manual.api.manual.ContentProvider;
+import li.cil.manual.common.RTFM;
 import net.minecraftforge.fml.common.Loader;
+import org.apache.commons.io.FileUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,6 +28,17 @@ public class ConfigContentProvider implements ContentProvider {
             File defLangDir = new File(directory, "en_us");
             if (!defLangDir.exists()) {
                 defLangDir.mkdir();
+                File defIndexFile = new File(defLangDir, "index.md");
+                if (!defIndexFile.exists()) {
+                    InputStream indexStream = RTFM.class.getResourceAsStream("/assets/rtfm/doc/default/index.md");
+                    if (indexStream != null) {
+                        try {
+                            FileUtils.copyInputStreamToFile(indexStream, defIndexFile);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         }
     }
