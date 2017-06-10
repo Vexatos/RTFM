@@ -25,4 +25,3 @@ Display a texture: `![Yet Another Tooltip](forge:textures/item/bucket_cover.png)
 ![Just Enough Tooltips](forge:textures/item/bucket_cover.png)
 
 There's more stuff you can do. Many parts of ordinary markdown syntax are supported, so just mess around with it.
-
