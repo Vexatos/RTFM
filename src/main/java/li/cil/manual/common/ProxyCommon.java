@@ -36,7 +36,7 @@ public class ProxyCommon {
                 setUnlocalizedName(API.MOD_ID + "." + name).
                 setCreativeTab(CreativeTabs.TOOLS).
                 setRegistryName(name);
-        GameRegistry.register(item);
+        GameRegistry.findRegistry(Item.class).register(item);
         return item;
     }
 

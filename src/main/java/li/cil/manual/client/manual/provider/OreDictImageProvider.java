@@ -64,7 +64,7 @@ public final class OreDictImageProvider implements ImageProvider {
         for (CreativeTabs itemTab : item.getCreativeTabs()) {
             NonNullList<ItemStack> subItems = NonNullList.create();
             try {
-                item.getSubItems(item, itemTab, subItems);
+                item.getSubItems(itemTab, subItems);
             } catch (RuntimeException | LinkageError e) {
                 RTFM.getLog().warn("Caught a crash while getting sub-items of {}", item, e);
             }
