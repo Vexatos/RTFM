@@ -5,6 +5,7 @@ import li.cil.manual.common.api.ManualAPIImpl;
 import li.cil.manual.common.init.Items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -26,6 +27,8 @@ public class ProxyCommon {
 
     public void onInit(final FMLInitializationEvent event) {
         Config.INSTANCE.init();
+
+        MinecraftForge.EVENT_BUS.register(EventHandler.INSTANCE);
 
         // Register Ore Dictionary entries
         OreDictionary.registerOre("book", Items.bookManual);

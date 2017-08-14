@@ -25,8 +25,11 @@ public enum Config {
         config.load();
     }
 
+    public boolean giveManualToNewPlayers;
+
     public void init() {
         final String mainTab = config.getString("mainTab", "general", "exampletab", "The main tab that will be selected when you first open the manual");
+        giveManualToNewPlayers = config.getBoolean("giveManualToNewPlayers", "general", false, "Whether to give a new player a free copy of the manual. This will only happen once per player.");
         ManualAPI.addProvider(new ConfigContentProvider());
         config.setCategoryComment("manual", "You can add as many tabs as you want in here. At least until the space runs out.\nTo regenerate this section, remove all entries from this category.");
         if (config.getCategory("manual").getChildren().size() == 0) {
