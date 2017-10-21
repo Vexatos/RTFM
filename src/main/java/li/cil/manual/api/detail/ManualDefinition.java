@@ -5,14 +5,16 @@ import li.cil.manual.api.manual.ImageProvider;
 import li.cil.manual.api.manual.ImageRenderer;
 import li.cil.manual.api.manual.PathProvider;
 import li.cil.manual.api.manual.TabIconRenderer;
+import li.cil.manual.common.api.ManualDefinitionImpl;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
-public interface ManualAPI {
+public interface ManualDefinition {
     /**
      * Register a tab to be displayed next to the manual.
      * <p>
@@ -67,6 +69,16 @@ public interface ManualAPI {
      * @param provider the provider to register.
      */
     void addProvider(String prefix, ImageProvider provider);
+
+    /**
+     * Adds the default providers listed in the documentation.
+     * They are:
+     * - TextureImageProvider
+     * - ItemImageProvider
+     * - BlockImageProvider
+     * - OreDictImageProvider
+     */
+    void addDefaultProviders();
 
     // ----------------------------------------------------------------------- //
 
@@ -138,4 +150,20 @@ public interface ManualAPI {
      * @param path the path to navigate to.
      */
     void navigate(String path);
+
+    void setDefaultPage(final String defaultPage);
+
+    int getHistorySize();
+
+    void pushPath(final String path);
+
+    String peekPath();
+
+    int peekOffset();
+
+    void setOffset(final int offset);
+
+    void popPath() ;
+
+    List<ManualDefinitionImpl.Tab> getTabs();
 }

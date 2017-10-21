@@ -2,14 +2,17 @@ package li.cil.manual.common.api;
 
 import com.google.common.base.Strings;
 import com.google.common.io.Files;
-import li.cil.manual.api.detail.ManualAPI;
+import li.cil.manual.api.detail.ManualDefinition;
 import li.cil.manual.api.manual.ContentProvider;
 import li.cil.manual.api.manual.ImageProvider;
 import li.cil.manual.api.manual.ImageRenderer;
 import li.cil.manual.api.manual.PathProvider;
 import li.cil.manual.api.manual.TabIconRenderer;
-import li.cil.manual.client.gui.GuiHandlerClient;
 import li.cil.manual.client.gui.GuiManual;
+import li.cil.manual.client.manual.provider.BlockImageProvider;
+import li.cil.manual.client.manual.provider.ItemImageProvider;
+import li.cil.manual.client.manual.provider.OreDictImageProvider;
+import li.cil.manual.client.manual.provider.TextureImageProvider;
 import li.cil.manual.common.RTFM;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -28,7 +31,7 @@ import java.util.Optional;
 import java.util.Stack;
 import java.util.regex.Pattern;
 
-public final class ManualAPIImpl implements ManualAPI {
+public final class ManualDefinitionImpl implements ManualDefinition {
     // Language placeholder replacement.
     private static final String LANGUAGE_KEY = "%LANGUAGE%";
     private static final String FALLBACK_LANGUAGE = "en_us";
@@ -42,35 +45,7 @@ public final class ManualAPIImpl implements ManualAPI {
 
     // --------------------------------------------------------------------- //
 
-    public static final ManualAPIImpl INSTANCE = new ManualAPIImpl();
-
-    public static int getHistorySize() {
-        return INSTANCE.history.size();
-    }
-
-    public static void pushPath(final String path) {
-        INSTANCE.history.push(new ManualAPIImpl.History(path));
-    }
-
-    public static String peekPath() {
-        return INSTANCE.history.peek().path;
-    }
-
-    public static int peekOffset() {
-        return INSTANCE.history.peek().offset;
-    }
-
-    public static void setOffset(final int offset) {
-        INSTANCE.history.peek().offset = offset;
-    }
-
-    public static void popPath() {
-        INSTANCE.history.pop();
-    }
-
-    public static List<Tab> getTabs() {
-        return INSTANCE.tabs;
-    }
+    public static final ManualDefinitionImpl INSTANCE = new ManualDefinitionImpl();
 
     // --------------------------------------------------------------------- //
 
@@ -106,7 +81,7 @@ public final class ManualAPIImpl implements ManualAPI {
 
     // --------------------------------------------------------------------- //
 
-    private ManualAPIImpl() {
+    public ManualDefinitionImpl() {
         reset();
     }
 
@@ -143,6 +118,13 @@ public final class ManualAPIImpl implements ManualAPI {
             }
         }
         imageProviders.add(new PrefixedImageProvider(actualPrefix, provider));
+    }
+
+    public void addDefaultProviders(){
+        addProvider("", new TextureImageProvider());
+        addProvider("item", new ItemImageProvider());
+        addProvider("block", new BlockImageProvider());
+        addProvider("oredict", new OreDictImageProvider());
     }
 
     @Override
@@ -192,7 +174,7 @@ public final class ManualAPIImpl implements ManualAPI {
     @Override
     public void openFor(final EntityPlayer player) {
         if (player.getEntityWorld().isRemote) {
-            player.openGui(RTFM.instance, GuiHandlerClient.GuiId.BOOK_MANUAL.ordinal(), player.getEntityWorld(), 0, 0, 0);
+            Minecraft.getMinecraft().displayGuiScreen(new GuiManual(this));
         }
     }
 
@@ -234,9 +216,37 @@ public final class ManualAPIImpl implements ManualAPI {
         }
     }
 
-    public static void setDefaultPage(final String defaultPage) {
-        INSTANCE.defaultPage = defaultPage;
-        INSTANCE.reset();
+    public void setDefaultPage(final String defaultPage) {
+        this.defaultPage = defaultPage;
+        reset();
+    }
+
+    public int getHistorySize() {
+        return history.size();
+    }
+
+    public void pushPath(final String path) {
+        history.push(new ManualDefinitionImpl.History(path));
+    }
+
+    public String peekPath() {
+        return history.peek().path;
+    }
+
+    public int peekOffset() {
+        return history.peek().offset;
+    }
+
+    public void setOffset(final int offset) {
+        history.peek().offset = offset;
+    }
+
+    public void popPath() {
+        history.pop();
+    }
+
+    public List<Tab> getTabs() {
+        return tabs;
     }
 
     // --------------------------------------------------------------------- //

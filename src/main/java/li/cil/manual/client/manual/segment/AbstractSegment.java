@@ -1,5 +1,6 @@
 package li.cil.manual.client.manual.segment;
 
+import li.cil.manual.common.api.ManualDefinitionImpl;
 import net.minecraft.client.gui.FontRenderer;
 
 import javax.annotation.Nullable;
@@ -9,6 +10,12 @@ import java.util.regex.Pattern;
 
 abstract class AbstractSegment implements Segment {
     private Segment next;
+
+    protected final ManualDefinitionImpl myManual;
+
+    public AbstractSegment(ManualDefinitionImpl manual){
+        myManual = manual;
+    }
 
     @Override
     public Segment root() {
@@ -34,5 +41,10 @@ abstract class AbstractSegment implements Segment {
     @Override
     public void setNext(@Nullable final Segment segment) {
         next = segment;
+    }
+
+    @Override
+    public ManualDefinitionImpl getManual() {
+        return myManual;
     }
 }

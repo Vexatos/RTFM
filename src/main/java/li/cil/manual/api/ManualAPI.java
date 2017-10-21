@@ -1,11 +1,14 @@
 package li.cil.manual.api;
 
+import li.cil.manual.api.detail.ManualDefinition;
 import li.cil.manual.api.manual.ContentProvider;
 import li.cil.manual.api.manual.ImageProvider;
 import li.cil.manual.api.manual.ImageRenderer;
 import li.cil.manual.api.manual.PathProvider;
 import li.cil.manual.api.manual.TabIconRenderer;
+import li.cil.manual.api.prefab.manual.ResourceContentProvider;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -14,6 +17,7 @@ import javax.annotation.Nullable;
 
 /**
  * This API allows interfacing with the in-game manual of RTFM.
+ * This is the built-in manual, not any mod-added ones.
  * <p>
  * It allows opening the manual at a desired specific page, as well as
  * registering custom tabs and content callback handlers.
@@ -191,6 +195,38 @@ public final class ManualAPI {
         if (API.manualAPI != null) {
             API.manualAPI.navigate(path);
         }
+    }
+
+    /**
+     * Creates a new manual instance for your mod's usage.
+     *
+     * You will need to register your own ContentProvider! See {@link ResourceContentProvider} for an example.
+     *
+     * @param addDefaultProviders whether to add the default providers listed in the docs (highly recommended)
+     * @return a new manual instance, or null if the factory wasn't defined (called too early) or is server
+     */
+    @Nullable
+    public static ManualDefinition createManual(boolean addDefaultProviders){
+        if (API.manualFactory != null){
+            ManualDefinition manual = API.manualFactory.createManual();
+            if (manual != null && addDefaultProviders){
+                manual.addDefaultProviders();
+            }
+            return manual;
+        }
+        return null;
+    }
+
+    /**
+     * Creates a book item for your manual. On server side manual will be null.
+     * @param manual client side: manual from {@link ManualAPI#createManual(boolean)}. Server side: null
+     * @return an item instance for you to register
+     */
+    public static Item createItemForManual(@Nullable ManualDefinition manual){
+        if (API.manualFactory != null){
+            return API.manualFactory.createItemForManual(manual);
+        }
+        throw new IllegalStateException("manualFactory is not yet defined. Did you call this before RTFM completed preInit?");
     }
 
     // ----------------------------------------------------------------------- //
