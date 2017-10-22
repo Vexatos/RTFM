@@ -5,14 +5,12 @@ import li.cil.manual.api.manual.ImageProvider;
 import li.cil.manual.api.manual.ImageRenderer;
 import li.cil.manual.api.manual.PathProvider;
 import li.cil.manual.api.manual.TabIconRenderer;
-import li.cil.manual.common.api.ManualDefinitionImpl;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 public interface ManualDefinition {
     /**
@@ -151,19 +149,51 @@ public interface ManualDefinition {
      */
     void navigate(String path);
 
+    /**
+     * When created, the default page is `%LANGUAGE%/index.md`, use this to change that.
+     *
+     * @param defaultPage the new default page location.
+     */
     void setDefaultPage(final String defaultPage);
 
+    /**
+     * @return the current number of pages in the history stack.
+     */
     int getHistorySize();
 
+    /**
+     * Add a path to the history stack.
+     *
+     * @param path the path to add
+     */
     void pushPath(final String path);
 
+    /**
+     * Looks at the path at the top of this stack without removing it
+     * from the stack.
+     *
+     * @return the path at the top of the stack.
+     */
     String peekPath();
 
+    /**
+     * Looks at the history path stack and returns the scroll offset of the
+     * top entry.
+     *
+     * @return the scroll offset.
+     */
     int peekOffset();
 
+    /**
+     * Sets the scroll offset of the page on top of the history stack.
+     *
+     * @param offset the scroll offset to set.
+     */
     void setOffset(final int offset);
 
-    void popPath() ;
+    /**
+     * Removes the path at the top of the stack
+     */
+    void popPath();
 
-    List<ManualDefinitionImpl.Tab> getTabs();
 }
