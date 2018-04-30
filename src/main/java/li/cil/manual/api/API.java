@@ -1,6 +1,9 @@
 package li.cil.manual.api;
 
 
+import li.cil.manual.api.detail.ManualDefinition;
+import li.cil.manual.api.detail.ManualFactory;
+
 /**
  * Glue / actual references for the RTFM API.
  */
@@ -17,8 +20,11 @@ public final class API {
 
     // --------------------------------------------------------------------- //
 
-    // Set in RTFM pre-init, prefer using static entry point classes instead.
-    public static li.cil.manual.api.detail.ManualAPI manualAPI;
+    // The default manual book. Set in RTFM pre-init. You should generally not modify this.
+    public static ManualDefinition manualAPI;
+
+    // Factory for creating your own manuals, and the item form of it.
+    public static ManualFactory manualFactory;
 
     private API() {
     }

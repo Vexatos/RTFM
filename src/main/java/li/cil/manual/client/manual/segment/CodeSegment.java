@@ -14,6 +14,7 @@ public final class CodeSegment extends BasicTextSegment {
     private final String text;
 
     public CodeSegment(final Segment parent, final String text) {
+        super(parent.getManual());
         this.parent = parent;
         this.text = text;
     }

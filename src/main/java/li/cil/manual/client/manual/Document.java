@@ -1,7 +1,6 @@
 package li.cil.manual.client.manual;
 
 import com.google.common.base.Strings;
-import li.cil.manual.api.ManualAPI;
 import li.cil.manual.api.manual.ImageRenderer;
 import li.cil.manual.client.manual.segment.BoldSegment;
 import li.cil.manual.client.manual.segment.CodeSegment;
@@ -14,6 +13,7 @@ import li.cil.manual.client.manual.segment.Segment;
 import li.cil.manual.client.manual.segment.SegmentRefiner;
 import li.cil.manual.client.manual.segment.StrikethroughSegment;
 import li.cil.manual.client.manual.segment.TextSegment;
+import li.cil.manual.common.api.ManualDefinitionImpl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -45,14 +45,15 @@ public final class Document {
     /**
      * Parses a plain text document into a list of segments.
      *
+     * @param manual the manual to which this document belongs (for content lookups)
      * @param document iterator over the lines of the document to parse.
      * @return the first segment of the parsed document.
      */
-    public static Segment parse(final Iterable<String> document) {
+    public static Segment parse(final ManualDefinitionImpl manual, final Iterable<String> document) {
         // Get top-level list of text segments.
         List<Segment> segments = new ArrayList<>();
         for (final String line : document) {
-            segments.add(new TextSegment(null, trimRight(line)));
+            segments.add(new TextSegment(manual, trimRight(line)));
         }
 
         // Refine text segments into sub-types.
@@ -72,7 +73,7 @@ public final class Document {
         for (int i = 0; i < segments.size() - 1; i++) {
             segments.get(i).setNext(segments.get(i + 1));
         }
-        return segments.size() > 0 ? segments.get(0) : new TextSegment(null, "");
+        return segments.size() > 0 ? segments.get(0) : new TextSegment(manual, "");
     }
 
     /**
@@ -223,7 +224,7 @@ public final class Document {
 
     private static Segment ImageSegment(final Segment s, final Matcher m) {
         try {
-            final ImageRenderer renderer = ManualAPI.imageFor(m.group(2));
+            final ImageRenderer renderer = s.getManual().imageFor(m.group(2));
             if (renderer != null) {
                 return new RenderSegment(s, m.group(1), renderer);
             } else {

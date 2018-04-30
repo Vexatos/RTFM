@@ -1,11 +1,10 @@
 package li.cil.manual.common;
 
 import li.cil.manual.api.API;
-import li.cil.manual.api.ManualAPI;
 import li.cil.manual.api.manual.TabIconRenderer;
 import li.cil.manual.api.prefab.manual.ItemStackTabIconRenderer;
 import li.cil.manual.api.prefab.manual.TextureTabIconRenderer;
-import li.cil.manual.common.api.ManualAPIImpl;
+import li.cil.manual.common.api.ManualDefinitionImpl;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -25,9 +24,12 @@ public enum Config {
         config.load();
     }
 
+    public boolean giveManualToNewPlayers;
+
     public void init() {
         final String mainTab = config.getString("mainTab", "general", "exampletab", "The main tab that will be selected when you first open the manual");
-        ManualAPI.addProvider(new ConfigContentProvider());
+        giveManualToNewPlayers = config.getBoolean("giveManualToNewPlayers", "general", false, "Whether to give a new player a free copy of the manual. This will only happen once per player.");
+        ManualDefinitionImpl.INSTANCE.addProvider(new ConfigContentProvider());
         config.setCategoryComment("manual", "You can add as many tabs as you want in here. At least until the space runs out.\nTo regenerate this section, remove all entries from this category.");
         if (config.getCategory("manual").getChildren().size() == 0) {
             config.getInt("tabIconMode", "manual.exampletab", 1, 0, 1, Constants.CONFIG_COMMENT_TAB_ICON_MODE);
@@ -80,7 +82,7 @@ public enum Config {
             tab.get("tabPath").setComment(Constants.CONFIG_COMMENT_TAB_PATH);
             String tabName = tab.get("tabName").getString();
             tab.get("tabName").setComment(Constants.CONFIG_COMMENT_TAB_NAME);
-            ManualAPI.addTab(r, tabName, tabPath);
+            ManualDefinitionImpl.INSTANCE.addTab(r, tabName, tabPath);
 
             if (mainTab.equals(tab.getName())) {
                 mainPath = tabPath;
@@ -88,7 +90,7 @@ public enum Config {
         }
 
         if (mainPath != null) {
-            ManualAPIImpl.setDefaultPage(mainPath);
+            ManualDefinitionImpl.INSTANCE.setDefaultPage(mainPath);
         } else {
             RTFM.getLog().error(String.format("Invalid main tab '%s'", mainTab));
         }

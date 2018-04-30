@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public interface ManualAPI {
+public interface ManualDefinition {
     /**
      * Register a tab to be displayed next to the manual.
      * <p>
@@ -67,6 +67,16 @@ public interface ManualAPI {
      * @param provider the provider to register.
      */
     void addProvider(String prefix, ImageProvider provider);
+
+    /**
+     * Adds the default providers listed in the documentation.
+     * They are:
+     * - TextureImageProvider
+     * - ItemImageProvider
+     * - BlockImageProvider
+     * - OreDictImageProvider
+     */
+    void addDefaultProviders();
 
     // ----------------------------------------------------------------------- //
 
@@ -138,4 +148,52 @@ public interface ManualAPI {
      * @param path the path to navigate to.
      */
     void navigate(String path);
+
+    /**
+     * When created, the default page is `%LANGUAGE%/index.md`, use this to change that.
+     *
+     * @param defaultPage the new default page location.
+     */
+    void setDefaultPage(final String defaultPage);
+
+    /**
+     * @return the current number of pages in the history stack.
+     */
+    int getHistorySize();
+
+    /**
+     * Add a path to the history stack.
+     *
+     * @param path the path to add
+     */
+    void pushPath(final String path);
+
+    /**
+     * Looks at the path at the top of this stack without removing it
+     * from the stack.
+     *
+     * @return the path at the top of the stack.
+     */
+    String peekPath();
+
+    /**
+     * Looks at the history path stack and returns the scroll offset of the
+     * top entry.
+     *
+     * @return the scroll offset.
+     */
+    int peekOffset();
+
+    /**
+     * Sets the scroll offset of the page on top of the history stack.
+     *
+     * @param offset the scroll offset to set.
+     */
+    void setOffset(final int offset);
+
+    /**
+     * Removes the path at the top of the stack
+     */
+    void popPath();
+
 }
