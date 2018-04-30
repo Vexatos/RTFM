@@ -1,13 +1,13 @@
 package li.cil.manual.client;
 
-import li.cil.manual.api.ManualAPI;
+import com.google.common.base.Preconditions;
+import li.cil.manual.api.API;
+import li.cil.manual.api.detail.ManualDefinition;
 import li.cil.manual.client.gui.GuiHandlerClient;
-import li.cil.manual.client.manual.provider.BlockImageProvider;
-import li.cil.manual.client.manual.provider.ItemImageProvider;
-import li.cil.manual.client.manual.provider.OreDictImageProvider;
-import li.cil.manual.client.manual.provider.TextureImageProvider;
 import li.cil.manual.common.RTFM;
 import li.cil.manual.common.ProxyCommon;
+import li.cil.manual.common.api.ManualDefinitionImpl;
+import li.cil.manual.common.api.ManualFactoryServer;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import vexatos.manualtabs.util.client.BadConfigException;
 
+import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 /**
@@ -36,10 +37,7 @@ public final class ProxyClient extends ProxyCommon {
         NetworkRegistry.INSTANCE.registerGuiHandler(RTFM.instance, new GuiHandlerClient());
 
         // Add default manual providers for client side stuff.
-        ManualAPI.addProvider("", new TextureImageProvider());
-        ManualAPI.addProvider("item", new ItemImageProvider());
-        ManualAPI.addProvider("block", new BlockImageProvider());
-        ManualAPI.addProvider("oredict", new OreDictImageProvider());
+        ManualDefinitionImpl.INSTANCE.addDefaultProviders();
     }
 
     @Override
@@ -66,5 +64,24 @@ public final class ProxyClient extends ProxyCommon {
         assert registryName != null;
         final ModelResourceLocation location = new ModelResourceLocation(registryName, "inventory");
         ModelLoader.setCustomModelResourceLocation(item, 0, location);
+    }
+
+    @Override
+    protected void createManualFactory() {
+        API.manualFactory = new ManualFactoryClient();
+    }
+
+    private static class ManualFactoryClient extends ManualFactoryServer {
+        @Override
+        public Item createItemForManual(@Nullable final ManualDefinition manual) {
+            Preconditions.checkNotNull(manual);
+            return super.createItemForManualReal(manual);
+        }
+
+        @Nullable
+        @Override
+        public ManualDefinition createManual() {
+            return new ManualDefinitionImpl();
+        }
     }
 }

@@ -1,9 +1,11 @@
 package li.cil.manual.client.manual.segment;
 
 import li.cil.manual.client.manual.Document;
+import li.cil.manual.common.api.ManualDefinitionImpl;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,14 @@ public class TextSegment extends BasicTextSegment {
     private final Segment parent;
     private final String text;
 
-    public TextSegment(@Nullable final Segment parent, final String text) {
+    public TextSegment(final ManualDefinitionImpl manual, final String text){
+        super(manual);
+        this.parent = null;
+        this.text = text;
+    }
+
+    public TextSegment(@Nonnull final Segment parent, final String text) {
+        super(parent.getManual());
         this.parent = parent;
         this.text = text;
     }

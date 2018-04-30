@@ -1,5 +1,6 @@
 package li.cil.manual.client.manual.segment;
 
+import li.cil.manual.common.api.ManualDefinitionImpl;
 import net.minecraft.client.gui.FontRenderer;
 
 import javax.annotation.Nullable;
@@ -92,4 +93,6 @@ public interface Segment {
     Segment next();
 
     void setNext(Segment segment);
+
+    ManualDefinitionImpl getManual();
 }

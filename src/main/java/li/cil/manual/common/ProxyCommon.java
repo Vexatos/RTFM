@@ -1,7 +1,8 @@
 package li.cil.manual.common;
 
 import li.cil.manual.api.API;
-import li.cil.manual.common.api.ManualAPIImpl;
+import li.cil.manual.common.api.ManualDefinitionImpl;
+import li.cil.manual.common.api.ManualFactoryServer;
 import li.cil.manual.common.init.Items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -21,7 +22,8 @@ public class ProxyCommon {
     public void onPreInit(final FMLPreInitializationEvent event) {
         Config.INSTANCE.load(event.getSuggestedConfigurationFile());
 
-        API.manualAPI = ManualAPIImpl.INSTANCE;
+        API.manualAPI = ManualDefinitionImpl.INSTANCE;
+        createManualFactory();
         Items.register(this);
     }
 
@@ -41,6 +43,10 @@ public class ProxyCommon {
                 setRegistryName(name);
         GameRegistry.register(item);
         return item;
+    }
+
+    protected void createManualFactory(){
+        API.manualFactory = new ManualFactoryServer();
     }
 
     public RuntimeException throwBadConfigException(String icon) {

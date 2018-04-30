@@ -19,6 +19,7 @@ public final class RenderSegment extends AbstractSegment implements InteractiveS
     private int lastY = 0;
 
     public RenderSegment(final Segment parent, final String title, final ImageRenderer imageRenderer) {
+        super(parent.getManual());
         this.parent = parent;
         this.title = title;
         this.imageRenderer = imageRenderer;

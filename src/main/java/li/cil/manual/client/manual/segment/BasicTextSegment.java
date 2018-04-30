@@ -2,6 +2,7 @@ package li.cil.manual.client.manual.segment;
 
 import com.google.common.collect.ImmutableSet;
 import li.cil.manual.client.manual.Document;
+import li.cil.manual.common.api.ManualDefinitionImpl;
 import net.minecraft.client.gui.FontRenderer;
 
 import java.util.Set;
@@ -11,6 +12,10 @@ abstract class BasicTextSegment extends AbstractSegment implements Segment {
     private static final Set<String> LISTS = ImmutableSet.of("- ", "* ");
 
     private String rootPrefix = null; // Lazily initialized.
+
+    public BasicTextSegment(final ManualDefinitionImpl manual) {
+        super(manual);
+    }
 
     private String getRootPrefix() {
         if (rootPrefix == null) {
