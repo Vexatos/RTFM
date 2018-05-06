@@ -174,10 +174,9 @@ public final class ManualDefinitionImpl implements ManualDefinition {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public void openFor(final EntityPlayer player) {
         if (player.getEntityWorld().isRemote) {
-            Minecraft.getMinecraft().displayGuiScreen(new GuiManual(this));
+            ManualGuiOpener.openManualGui(this);
         }
     }
 
@@ -349,5 +348,13 @@ public final class ManualDefinitionImpl implements ManualDefinition {
     private interface ProviderQuery {
         @Nullable
         String pathFor(PathProvider provider);
+    }
+
+    // Because otherwise we'd have to @SideOnly stuff above
+    @SideOnly(Side.CLIENT)
+    private static class ManualGuiOpener {
+        private static void openManualGui(ManualDefinitionImpl manual) {
+            Minecraft.getMinecraft().displayGuiScreen(new GuiManual(manual));
+        }
     }
 }
