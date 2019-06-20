@@ -39,6 +39,7 @@ public final class CodeSegment extends BasicTextSegment {
         while (chars.length() > 0) {
             final String part = chars.substring(0, numChars);
             GlStateManager.color(0.25f, 0.3f, 0.5f, 1);
+            GlStateManager.enableAlpha();
             GlStateManager.pushMatrix();
             GlStateManager.translate(currentX, currentY, 0);
             GlStateManager.scale(FONT_SCALE, FONT_SCALE, FONT_SCALE);
